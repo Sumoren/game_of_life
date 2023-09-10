@@ -5,7 +5,7 @@ pub enum State {
 }
 
 pub struct Simulation {
-    world: Vec<State>,
+    grid: Vec<State>,
     size: usize
 }
 
@@ -13,16 +13,16 @@ impl Simulation {
     pub fn new(size: usize) -> Simulation {
         Simulation {
             size,
-            world: vec![State::Dead; size * size]
+            grid: vec![State::Dead; size * size]
         }
     }
 
     pub fn get_state_at(&self, column: usize, line: usize) -> State {
-        self.world[line * self.size + column]
+        self.grid[line * self.size + column]
     }
 
     pub fn set_state_at(&mut self, column: usize, line: usize, state : State) {
-        self.world[line * self.size + column] = state;
+        self.grid[line * self.size + column] = state;
     }
 }
 
@@ -33,7 +33,7 @@ mod tests {
     #[test]
     fn test_all_dead_at_init() {
         let sim = Simulation::new(2);
-        assert!(sim.world.iter().all(|&x| x == State::Dead));
+        assert!(sim.grid.iter().all(|&x| x == State::Dead));
     }
 
     #[test]
