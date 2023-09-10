@@ -1,3 +1,8 @@
+mod gol;
+
+use gol::simulation::*;
+
 fn main() {
-    println!("Hello, world!");
+    let mut simulation = Simulation::new(10);
+    simulation.set_state_at(5, 5, State::Alive);
 }
