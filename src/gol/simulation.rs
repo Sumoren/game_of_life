@@ -43,13 +43,12 @@ impl Simulation {
     pub fn tick(&mut self) {
         std::mem::swap(&mut self.grid, &mut self.off_grid);
 
-        let iter = self.grid.iter_mut();
-        for (i, state) in iter.enumerate() {
-            *state = Self::get_next_state(&self.off_grid, i);
+        for i in 0..self.grid.len() {
+            self.grid[i] = self.get_next_state(i);
         }
     }
 
-    fn get_next_state(grid: &Vec<State>, i: usize) -> State {
+    fn get_next_state(&self, i: usize) -> State {
         todo!();
     }
 }
