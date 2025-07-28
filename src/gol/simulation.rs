@@ -1,25 +1,27 @@
 #[derive(Clone, Copy, PartialEq, Debug)]
 pub enum State {
     Dead,
-    Alive
+    Alive,
 }
 
+#[allow(dead_code)]
 pub struct Simulation {
     grid: Vec<State>,
     off_grid: Vec<State>,
-    size: usize
+    size: usize,
 }
 
+#[allow(dead_code)]
 impl Simulation {
     pub fn new(size: usize) -> Simulation {
         Simulation {
             size,
             grid: vec![State::Dead; size * size],
-            off_grid: vec![State::Dead; size * size]
+            off_grid: vec![State::Dead; size * size],
         }
     }
 
-    pub fn new_from_state(initial_state: &[State]) -> Simulation{
+    pub fn new_from_state(initial_state: &[State]) -> Simulation {
         let size = (initial_state.len() as f64).sqrt() as usize;
         if (size * size) != initial_state.len() {
             panic!("initial state is not square");
@@ -28,7 +30,7 @@ impl Simulation {
         Simulation {
             size,
             grid: initial_state.to_vec(),
-            off_grid: vec![State::Dead; size * size]
+            off_grid: vec![State::Dead; size * size],
         }
     }
 
@@ -36,7 +38,7 @@ impl Simulation {
         self.grid[line * self.size + column]
     }
 
-    pub fn set_state_at(&mut self, column: usize, line: usize, state : State) {
+    pub fn set_state_at(&mut self, column: usize, line: usize, state: State) {
         self.grid[line * self.size + column] = state;
     }
 
@@ -73,22 +75,62 @@ mod tests {
     #[test]
     fn test_tick_1() {
         let initial_state = [
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Alive, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Alive, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Alive, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Alive,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Alive,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Alive,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
         ];
 
         let mut sim = Simulation::new_from_state(&initial_state);
         sim.tick();
 
         let expected = [
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead,
-            State::Dead, State::Alive, State::Alive, State::Alive, State::Dead,
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead,
-            State::Dead, State::Dead, State::Dead, State::Dead, State::Dead
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Alive,
+            State::Alive,
+            State::Alive,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
+            State::Dead,
         ];
 
         assert!(sim.grid.iter().eq(expected.iter()));
