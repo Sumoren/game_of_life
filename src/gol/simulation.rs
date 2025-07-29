@@ -50,6 +50,7 @@ impl Simulation {
         }
     }
 
+    #[allow(unused_variables)]
     fn get_next_state(&self, i: usize) -> State {
         todo!();
     }
